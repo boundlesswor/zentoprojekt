@@ -1,0 +1,14 @@
+{
+  "name": "zento-telegram-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot for ZENTO authentication",
+  "main": "telegram-bot.js",
+  "scripts": {
+    "start": "node telegram-bot.js"
+  },
+  "dependencies": {
+    "node-telegram-bot-api": "^0.66.0",
+    "@supabase/supabase-js": "^2.39.0",
+    "dotenv": "^16.3.1"
+  }
+}
