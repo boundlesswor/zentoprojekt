@@ -1,8 +1,4 @@
-"use client";
-
-export const dynamic = "force-dynamic";
-export const revalidate = false;
-export const fetchCache = "force-no-store";
+"use client"
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
@@ -22,7 +18,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { useAuth } from "@/lib/auth-context"
+import { useAuth } from "@/context/AuthContext"
 
 export default function ProfilePage() {
   const { user, isAuthenticated } = useAuth()
@@ -335,9 +331,7 @@ export default function ProfilePage() {
               <ArrowLeft className="w-4 h-4 mr-2" />
               Назад к каталогу
             </Button>
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-purple-400 bg-clip-text text-transparent neon-text">
-              ZENTO
-            </h1>
+            <h1 className="text-2xl font-bold text-white mb-4">ZENTO</h1>
             <span className="text-gray-400">Личный кабинет</span>
           </div>
         </div>
