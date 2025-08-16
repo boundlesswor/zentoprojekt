@@ -1,8 +1,4 @@
-"use client";
-
-export const dynamic = "force-dynamic";
-export const revalidate = false;
-export const fetchCache = "force-no-store";
+"use client"
 
 import type React from "react"
 import { useState } from "react"
@@ -14,7 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useAuth } from "@/lib/auth-context"
+import { useAuth } from "@/context/AuthContext"
 
 const agencyCategories = [
   // Логистика и доставка
