@@ -55,11 +55,23 @@ export function AuthButton() {
     setError("")
 
     try {
-      await login(code)
-      setIsDialogOpen(false)
-      setCode("")
+      const response = await fetch("/api/auth/verify-code", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: code.trim() }),
+      })
+
+      const data = await response.json()
+
+      if (data.success && data.user) {
+        login(data.user)
+        setIsDialogOpen(false)
+        setCode("")
+      } else {
+        setError(data.error === "CODE_NOT_FOUND" ? "Код не найден" : "Ошибка авторизации")
+      }
     } catch (error: any) {
-      setError(error.message || "Ошибка авторизации")
+      setError("Ошибка сети")
     } finally {
       setIsLoggingIn(false)
     }
@@ -84,6 +96,9 @@ export function AuthButton() {
   }
 
   if (isAuthenticated && user) {
+    const displayName = user.first_name || user.username || "Пользователь"
+    const statusText = user.is_admin ? "Администратор" : "Пользователь"
+
     return (
       <div className="flex items-center space-x-3">
         <Button
@@ -94,7 +109,7 @@ export function AuthButton() {
           <div className="relative">
             <img
               src="/generic-user-avatar.png"
-              alt={user.first_name || "User"}
+              alt={displayName}
               className="w-8 h-8 rounded-full border-2 border-emerald-400/50 shadow-lg"
             />
             {unreadCount > 0 && (
@@ -104,8 +119,8 @@ export function AuthButton() {
             )}
           </div>
           <div className="flex flex-col items-start">
-            <span className="text-sm font-medium">{user.first_name || "Пользователь"}</span>
-            {user.is_admin && <span className="text-xs text-emerald-400">Админ</span>}
+            <span className="text-sm font-medium">{displayName}</span>
+            <span className={`text-xs ${user.is_admin ? "text-emerald-400" : "text-gray-400"}`}>{statusText}</span>
           </div>
         </Button>
         <Button
@@ -174,7 +189,7 @@ export function AuthButton() {
             <p className="font-medium text-gray-400">Как получить код:</p>
             <p>1. Нажмите "Перейти в Telegram бот"</p>
             <p>2. Отправьте команду /start</p>
-            <p>3. Отправьте команду /code</p>
+            <p>3. Нажмите кнопку "Получить код для входа"</p>
             <p>4. Введите полученный код здесь</p>
           </div>
 
