@@ -1,8 +1,4 @@
-"use client";
-
-export const dynamic = "force-dynamic";
-export const revalidate = false;
-export const fetchCache = "force-no-store";
+"use client"
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
@@ -12,7 +8,7 @@ import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import { useAuth } from "@/lib/auth-context"
+import { useAuth } from "@/context/AuthContext"
 
 interface PendingApplication {
   id: number
